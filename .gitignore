@@ -1,3 +1,5 @@
+bazel-*
+MODULE.bazel.lock
 cmake-build-debug/
 .vscode/
 build/
