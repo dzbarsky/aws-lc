@@ -1,0 +1,16 @@
+module(name = "aws-lc")
+
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_autoconf", version = "0.0.14")
+bazel_dep(name = "rules_cc", version = "0.2.16")
+bazel_dep(name = "googletest", version = "1.17.0.bcr.2")
+
+bazel_dep(name = "toolchains_llvm_bootstrapped", version = "0.3.1")
+archive_override(
+    module_name = "toolchains_llvm_bootstrapped",
+    strip_prefix = "toolchains_llvm_bootstrapped-6a2aa869000d37626f0b7aea6cf92123d8322b2b",
+    urls = ["https://github.com/cerisier/toolchains_llvm_bootstrapped/archive/6a2aa869000d37626f0b7aea6cf92123d8322b2b.tar.gz"],
+)
+
+register_toolchains("@toolchains_llvm_bootstrapped//...")

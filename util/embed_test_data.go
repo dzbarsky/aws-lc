@@ -12,8 +12,6 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-//go:build ignore
-
 // embed_test_data generates a C++ source file which exports a function,
 // GetTestData, which looks up the specified data files.
 package main
@@ -27,6 +25,7 @@ import (
 )
 
 var fileList = flag.String("file-list", "", "if not empty, the path to a file containing a newline-separated list of files, to work around Windows command-line limits")
+var outPath = flag.String("out", "", "output file path (defaults to stdout)")
 
 func quote(in []byte) string {
 	var lastWasHex bool
@@ -75,6 +74,14 @@ func quote(in []byte) string {
 
 func main() {
 	flag.Parse()
+
+	outFile, err := os.Create(*outPath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error creating %s: %s.\n", *outPath, err)
+		os.Exit(1)
+	}
+	defer outFile.Close()
+	os.Stdout = outFile
 
 	var files []string
 	if len(*fileList) != 0 {

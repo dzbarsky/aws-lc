@@ -162,7 +162,7 @@ extern "C" {
  * Jitter RNG State Definition Section
  ***************************************************************************/
 
-#if defined(_MSC_VER)
+#if defined(_WIN32) || defined(_WIN64)
 #include "arch/jitterentropy-base-windows.h"
 #else
 #include "jitterentropy-base-user.h"
